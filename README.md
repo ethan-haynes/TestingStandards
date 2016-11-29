@@ -43,6 +43,31 @@ describe('modifies an existing array of data', function() {
   })
 })
 ```
+Version in Python
+```Python
+testData = [1, 2, 3, 4]
+
+
+def test_function(self):
+        """
+        modifies an existing array of data
+        to multiply all indices by a 3
+        """
+        return map((lambda x: x * 3), testData)
+
+testData = test_function()
+```
+Testing using Python (unittest)
+```Python
+def test_function(self):
+        """
+        tests that function modifies an existing array
+        of data to multiply all indices by a 3
+        """
+        var testData = [1, 2, 3, 4]
+        testFunction()
+        self.assertEqual(testData, [3, 6, 9, 12])
+```
 
 #### With Dependency Injection
 ```javascript
@@ -70,8 +95,35 @@ describe('makes a new array of data', function() {
 })
 ```
 
+Version in Python
+```Python
+testData = [1, 2, 3, 4]
+
+
+def test_function(self, data):
+        """
+        modifies an existing array of data
+        to multiply all indices by a 3
+        """
+        return map((lambda x: x * 3), data)
+
+newData = test_function(testData)
+```
+Testing using Python (unittest)
+```Python
+def test_function(self):
+        """
+        tests that function modifies an existing array
+        of data to multiply all indices by a 3
+        """
+        var testData = [1, 2, 3, 4]
+        newData = testFunction(testData)
+        self.assertEqual(newData, [3, 6, 9, 12])
+```
+
 ### Positional Dependencies
-[Connascence](https://en.wikipedia.org/wiki/Connascence_(computer_programming)#Connascence_of_Position_.28CoP.29) is a metric of code complexity caused by its dependencies. It is attributed to Meilir Page-Jones. Connascence of Position is when the components that we write, whether those are functions, methods, classes, etc., conform to a specific order of value or implementation. This order must be agreed upon by the caller and the callee, and if there is a change in the structure it will cause bugs that will not be found by unit tests alone. When functions know about the data outside of their scope it can create positional dependencies that are hard to test which can slow future feature development.
+<br/>
+[Connascence](https://en.wikipedia.org/wiki/Connascence_(computer_programming) is a metric of code complexity caused by its dependencies. It is attributed to Meilir Page-Jones. Connascence of Position is when the components that we write, whether those are functions, methods, classes, etc., conform to a specific order of value or implementation. This order must be agreed upon by the caller and the callee, and if there is a change in the structure it will cause bugs that will not be found by unit tests alone. When functions know about the data outside of their scope it can create positional dependencies that are hard to test which can slow future feature development.
 
 Say we take our first example and tweak it to show positional dependency.
 ```javascript
