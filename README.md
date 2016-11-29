@@ -122,7 +122,6 @@ def test_function(self):
 ```
 
 ### Positional Dependencies
-<br/>
 [Connascence](https://en.wikipedia.org/wiki/Connascence_(computer_programming) is a metric of code complexity caused by its dependencies. It is attributed to Meilir Page-Jones. Connascence of Position is when the components that we write, whether those are functions, methods, classes, etc., conform to a specific order of value or implementation. This order must be agreed upon by the caller and the callee, and if there is a change in the structure it will cause bugs that will not be found by unit tests alone. When functions know about the data outside of their scope it can create positional dependencies that are hard to test which can slow future feature development.
 
 Say we take our first example and tweak it to show positional dependency.
@@ -255,7 +254,7 @@ End to End Tests are well written if they focus on areas of code that are unable
 
 E2E Test with NightWatchJS:
 ```javascript
-module.exports = {
+module.exports =
   'Demo test API' : function (client) {
     client
       .url('$BASE_API_URL')
