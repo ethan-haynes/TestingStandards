@@ -256,21 +256,54 @@ End to End Tests are well written if they focus on areas of code that are unable
 E2E Test with NightWatchJS:
 ```javascript
 module.exports =
-  'Demo test API' : function (client) {
+  'Demo test API' : function ( client ) {
     client
-      .url('$BASE_API_URL')
-      .waitForElementVisible('body', 1000)
-      .assert.title('Test API')
-      .assert.visible('input[type=text]')
-      .setValue('input[type=text]', 'Site Location 1')
-      .waitForElementVisible('button[name=btnG]', 1000)
-      .click('button[name=btnG]')
-      .pause(1000)
-      .assert.containsText('#site-location li:first-child',
-        'Location - 1')
-      .end()
+      .url( $BASE_API_URL )
+      .waitForElementVisible( 'body', 1000 )
+      .assert.title('Test API' )
+      .assert.visible( 'input[type=text]' )
+      .setValue( 'input[type=text]', 'Site Location 1' )
+      .waitForElementVisible( 'button[name=btnG]', 1000 )
+      .click( 'button[name=btnG]')
+      .pause( 1000 )
+      .assert.containsText( '#site-location',
+        'Location - 1' )
+      .end( )
   }
 }
+```
+
+Python example using selenium:
+```Python
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+
+import unittest
+
+class ApiTestCase(unittest.TestCase):
+
+    def setUp(self):
+        self.browser = webdriver.Firefox()
+        self.addCleanup(self.browser.quit)
+
+    def test_page_title(self):
+        self.browser.get($BASE_API_URL)
+        self.assertIn('Test API', self.browser.title)
+
+    def test_button_on_page(self):
+        self.browser.get($BASE_API_URL)
+        self.browser.implicitly_wait(10)
+
+        sl_element = self.browser.find_element_by_id("site-location")
+
+        if sl_element.is_displayed():
+          sl_element.click()
+
+        self.browser.implicitly_wait(10)
+        self.assertEquals('Location - 1', sl_element.text)
+
+if __name__ == '__main__':
+    unittest.main(verbosity=2)
 ```
 
 #### Considerations
