@@ -206,6 +206,37 @@ describe('captures a response from a service', function() {
 })
 ```
 
+Mocking example using python and nose
+```Python
+# Standard library imports...
+from unittest.mock import Mock, patch
+
+# Third-party imports...
+from nose.tools import assert_is_none, assert_list_equal
+
+# Local imports...
+from project.services import get_some_service
+from Bar import some_class
+
+
+@patch('project.services.requests.get')
+def test_getting_service_when_response_is_ok(mock_get):
+    service = [{ "response" : "success" }]
+
+    # Configure the mock to return a response with an OK status code. Also, the mock should have
+    # a `json()` method that returns a list of todos.
+    mock_get.return_value = Mock(ok=True)
+    mock_get.return_value.json.return_value = service
+
+    foo = Foo({ name: "tester", payment: 200.00 })
+    # Call the service, which will send a request to the server.
+    response = get_some_service(foo)
+    newData = Bar(response.json())
+
+    # If the request is sent successfully, then I expect a response to be returned.
+    assert_list_equal(newData, { "response" : "success" })
+```
+
 #### Summary
 Dependency Injection allows us to:
       * remove knowledge of service object's data model/ implementation details
@@ -273,12 +304,15 @@ module.exports =
 }
 ```
 
-Python example using selenium:
+Example using Python and selenium:
 ```Python
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
 import unittest
+
+# Local imports...
+from project.constants import BASE_API_URL
 
 class ApiTestCase(unittest.TestCase):
 
@@ -287,11 +321,11 @@ class ApiTestCase(unittest.TestCase):
         self.addCleanup(self.browser.quit)
 
     def test_page_title(self):
-        self.browser.get($BASE_API_URL)
+        self.browser.get(BASE_API_URL)
         self.assertIn('Test API', self.browser.title)
 
     def test_button_on_page(self):
-        self.browser.get($BASE_API_URL)
+        self.browser.get(BASE_API_URL)
         self.browser.implicitly_wait(10)
 
         sl_element = self.browser.find_element_by_id("site-location")
